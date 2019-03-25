@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/svresources">
+        <file>main.qml</file>
+        <file>NewClaimFrame.qml</file>
+        <file>ReceiveClaimFrame.qml</file>
+        <file>ManageClaimsFrame.qml</file>
+        <file>SearchFrame.qml</file>
+        <file>SettingsFrame.qml</file>
+        <file>WalletInfoFrame.qml</file>
+        <file>NewWalletFrame.qml</file>
+        <file>ClearWalletFrame.qml</file>
+        <file>CustomButton.qml</file>
+        <file>Images/logo.png</file>
+        <file>LoadWalletFrame.qml</file>
+        <file>Images/circlelogo.png</file>
+        <file>Images/biggercircle.png</file>
+        <file>Images/biggercircle2.png</file>
+        <file>Images/biggercircle3.png</file>
+        <file>CustomSwitch.qml</file>
+        <file>Global/qmldir</file>
+        <file>Global/Variables.qml</file>
+        <file>TextButton.qml</file>
+        <file>WalletListView.qml</file>
+        <file>PScrollBar.qml</file>
+        <file>HistoryListView.qml</file>
+        <file>WalletMoreInfoPage.qml</file>
+        <file>WTextField.qml</file>
+        <file>WCheckBox.qml</file>
+        <file>Images/checkmarkwhite.png</file>
+        <file>WCombobox.qml</file>
+        <file>WTextArea.qml</file>
+        <file>SummaryFrame.qml</file>
+        <file>LeftMenu.qml</file>
+        <file>WSwipeView.qml</file>
+        <file>PaymentFrame.qml</file>
+        <file>ImageButton.qml</file>
+        <file>Images/discover.png</file>
+        <file>Images/mastercard.png</file>
+        <file>Images/visa.png</file>
+        <file>Images/express.png</file>
+        <file>ProcessingFrame.qml</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
