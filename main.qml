@@ -39,19 +39,39 @@ Window {
         anchors.right: parent.right
         anchors.bottom: footer.top
         color: Variables.backgroundColor
-        LeftMenu
-        {
-            id: leftMenu
+        WSwipeView{
+            id: menuView
             anchors.left: parent.left
             width: Math.max(Math.min(parent.width / 5, leftMenuMaxWidth), leftMenuMinWidth)
             anchors.top: parent.top
             anchors.bottom: parent.bottom
+            clip: true
             z: 2
+            Page
+            {
+                MainLeftMenu
+                {
+                    id: mainLeftMenu
+                    anchors.fill: parent
+                    clip: true
+                }
+            }
+            Page
+            {
+                ManageLeftMenu
+                {
+                    id: manageLeftMenu
+                    anchors.fill: parent
+                    clip: true
+                }
+            }
+            interactive: false
         }
+
         WSwipeView {
             id: mainStackView
             anchors.right: parent.right
-            anchors.left: leftMenu.right
+            anchors.left: menuView.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             Page {
@@ -59,80 +79,181 @@ Window {
                 WSwipeView{
                     id: walletStackView
                     anchors.fill: parent
+                    clip: true
                     Page{
-                        id: walletInfoFrame
+                        id: walletInfoPage
                         WalletInfoFrame {
+                            id: walletInfoFrame
                             mainStackViewIdx: mainStackView.currentIndex
                             walletStackViewIdx: walletStackView.currentIndex
+                            clip: true
                         }
                     }
                     Page{
                         id: newClaimView
+
                         SwipeView{
                             id: newClaimSwipeView
                             anchors.fill: parent
+                            clip: true
                             Page{
                                 NewClaimFrame {
                                     id: newClaimFrameParent
+                                    clip: true
                                 }
                             }
                             Page{
                                 SummaryFrame {
                                     id: summaryFrame
+                                    clip: true
                                 }
                             }
                             Page{
                                 PaymentFrame {
                                     id: paymentFrame
+                                    clip: true
                                 }
                             }
                             Page{
                                 ProcessingFrame {
                                     id: processFrame
                                     swipeViewCurIdx: newClaimSwipeView.currentIndex
+                                    clip: true
                                 }
                             }
                             interactive: false
                         }
                     }
                     Page{
-                        ReceiveClaimFrame {
-                            id: receiveClaimFrameParent
+                        id: recieveClaimPage
+
+                        SwipeView{
+                            id: receiveClaimSwipeView
+                            anchors.fill: parent
+                            clip: true
+                            Page{
+                                ReceiveClaimFrame {
+                                    id: receiveClaimFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ProcessingFrame {
+                                    swipeViewCurIdx: receiveClaimSwipeView.currentIndex
+                                    fromWhere: 1
+                                    clip: true
+                                }
+                            }
+                            interactive: false
                         }
                     }
                     Page{
-                        ManageClaimsFrame {
-                            id: manageClaimsFrameParent
+
+                        WSwipeView{
+                            id: manageClaimSwipeView
+                            anchors.fill: parent
+                            clip: true
+                            Page{
+                                ManageClaimFrame {
+                                    id: manageClaimsFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ManageClaimFrame2 {
+                                    id: manageClaimsFrame2
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ManageReportFrame {
+                                    id: manageReportFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ManageTransferFrame {
+                                    id: manageTransferFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ManageEditFrame {
+                                    id: manageEditFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ManageDisclaimFrame {
+                                    id: manageDisclaimFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                ManageFoundFrame {
+                                    id: manageFoundFrame
+                                    clip: true
+                                }
+                            }
+                            Page{
+                                SummaryFrame {
+                                    id: manageSummaryFrame
+                                    clip: true
+                                    fromNew: false
+                                }
+                            }
+                            Page{
+                                PaymentFrame {
+                                    id: managePaymentFrame
+                                    clip: true
+                                    fromNew: false
+                                }
+                            }
+                            Page{
+                                ProcessingFrame {
+                                    id: manageProcessFrame
+                                    swipeViewCurIdx: newClaimSwipeView.currentIndex
+                                    clip: true
+                                    fromWhere: 2
+                                }
+                            }
+
+                            interactive: false
                         }
                     }
-                    Page{
-                        SearchFrame {
-                            id: searchFrameParent
-                        }
-                    }
-                    Page{
-                        SettingsFrame {
-                            id: settingsFrameParent
-                        }
-                    }
-//                    onWindowChanged: walletStackView.initialItem = walletInfoFrame
                 }
             }
             Page {
                 id: newWalletFrame
                 NewWalletFrame {
+                    clip: true
                 }
             }
             Page {
                 id: loadWalletFrame
                 LoadWalletFrame {
+                    clip: true
                 }
             }
             Page {
                 id: clearWalletFrame
                 ClearWalletFrame {
+                    clip: true
                 }
             }
+            Page{
+                SearchFrame {
+                    id: searchFrameParent
+                    clip: true
+                }
+            }
+            Page{
+                SettingsFrame {
+                    id: settingsFrameParent
+                    clip: true
+                }
+            }
+            interactive: false
         }
     }
     Rectangle{
@@ -193,6 +314,6 @@ Window {
     }
     function gotoPageWithIdx(largeIdx, smallIdx)
     {
-        leftMenu.gotoPage(largeIdx, smallIdx)
+        mainLeftMenu.gotoPage(largeIdx, smallIdx)
     }
 }

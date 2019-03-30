@@ -9,6 +9,7 @@ TextField {
     id: txtField
     style: TextFieldStyle {
         textColor: Variables.textColor
+        placeholderTextColor: Variables.placeHolderTextColor
         background: Rectangle {
             color: Variables.buttonColor
             radius: 0

@@ -16,7 +16,7 @@ ComboBox {
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }
-        highlighted: control.highlightedIndex === index
+//        highlighted: control.highlightedIndex === index
     }
 
     indicator: Canvas {
@@ -60,6 +60,7 @@ ComboBox {
     background: Rectangle {
         implicitWidth: 120
         implicitHeight: 40
+        color: Variables.buttonColor
         border.color: control.focus ? Variables.focusColor : Variables.borderNormalColor//control.pressed ? "#17a81a" : "#21be2b"
         border.width: control.visualFocus ? 2 : 1
         radius: 0
@@ -83,6 +84,7 @@ ComboBox {
         background: Rectangle {
             border.color: Variables.focusColor
             radius: 2
+            color: Variables.buttonColor
         }
     }
 }

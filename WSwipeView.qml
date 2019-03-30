@@ -18,7 +18,8 @@ SwipeView {
           snapMode: ListView.SnapOneItem
           boundsBehavior: Flickable.StopAtBounds
 
-          highlightRangeMode: ListView.StrictlyEnforceRange
+//          highlightRangeMode: ListView.StrictlyEnforceRange
+          highlightRangeMode: ListView.NoHighlightRange
           preferredHighlightBegin: 0
           preferredHighlightEnd: 0
           highlightMoveDuration: 10

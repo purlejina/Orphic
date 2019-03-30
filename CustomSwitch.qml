@@ -6,7 +6,7 @@ import QtQuick.Controls.Styles 1.4
 
 Switch {
     id: switcher
-    anchors.fill: parent
+//    anchors.fill: parent
     checked: false
     style: SwitchStyle {
         groove: Rectangle {

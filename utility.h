@@ -20,6 +20,8 @@ public:
     HistoryModel m_historyModel;
     LocalWalletModel m_localWalletModel;
 
+    OrphicWalletModel m_searchClaimModel;
+
 signals:
 
 private:
@@ -56,26 +58,47 @@ public slots:
     bool checkTransaction(QString p_transactionId);
     QString getTransactionMsg();
 
-    void receiveClaim_step1();
-    void receiveClaim_step2(const QString &RecieveKey);
+    QString receiveClaim_step1();
+    bool receiveClaim_step2(const QString &RecieveKey);
     // transaction get functions will also go here
 
+    // report API
+    void reportClaim(bool p_lostOrStolen, QString p_contact, QString p_file, QString p_note);
+
+    // transfer API
+    QString transferKey();
+    void    transferClaim(QString p_receiverAddress, QString p_transferKey, QString p_note);
+
+    // edit API
+    void    editClaim(QString p_note, QString p_file, bool p_public);
+
+    // disclaim API
+    void    disclaim(QString p_note);
+
+    // found API
+    void    foundClaim(QString p_note);
+
     // search API
-    void searchChain(const QString &Search);
+    void searchBlockchain(const QString &Search);
 
     QString getWalletName();
 
-    QString getWType(int p_idx);
-    QString getWName(int p_idx);
-    QString getWMake(int p_idx);
-    QString getWModel(int p_idx);
-    QString getWYear(int p_idx);
-    QString getWSerial(int p_idx);
-    QString getWOther(int p_idx);
-    QString getWDescription(int p_idx);
-    QString getWPicture(int p_idx);
+    QString getWType(int p_idx, bool p_bSearch = false);
+    QString getWName(int p_idx, bool p_bSearch = false);
+    QString getWMake(int p_idx, bool p_bSearch = false);
+    QString getWModel(int p_idx, bool p_bSearch = false);
+    QString getWYear(int p_idx, bool p_bSearch = false);
+    QString getWSerial(int p_idx, bool p_bSearch = false);
+    QString getWOther(int p_idx, bool p_bSearch = false);
+    QString getWDescription(int p_idx, bool p_bSearch = false);
+    QString getWPicture(int p_idx, bool p_bSearch = false);
 
-    void    selectWallet(int p_idx);
+    QString getWTransactionId(int p_idx, bool p_bSearch = false);
+    QString getWClaimedOn(int p_idx, bool p_bSearch = false);
+    QString getWEditedOn(int p_idx, bool p_bSearch = false);
+    QString getWReportedOn(int p_idx, bool p_bSearch = false);
+    QString getWFoundOn(int p_idx, bool p_bSearch = false);
+    QString getWTransferredOn(int p_idx, bool p_bSearch = false);
 
     QString getFirstMessage();
     QString getSecretOutput();

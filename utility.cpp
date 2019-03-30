@@ -70,7 +70,7 @@ bool Utility::loadWallet_fromFile(const QString &Name, const QString &Password)
 }
 void Utility::closeWallet()
 {
-
+    m_walletModel.closeWallet();
 }
 bool Utility::clearWallet(const QString &Password)
 {
@@ -113,21 +113,56 @@ QString Utility::getTransactionMsg()
     return "Processing error";
 }
 
-void Utility::receiveClaim_step1()
+QString Utility::receiveClaim_step1()
+{
+    return "asdfxcvxasxdbvyhuasbnjh";
+}
+
+bool Utility::receiveClaim_step2(const QString &RecieveKey)
+{
+    if (RecieveKey == "test")
+        return true;
+    return false;
+}
+
+void Utility::reportClaim(bool p_lostOrStolen, QString p_contact, QString p_file, QString p_note)
 {
 
 }
 
-void Utility::receiveClaim_step2(const QString &RecieveKey)
+QString Utility::transferKey()
+{
+    return "asjcvzxvhoisndklnfkzxvkzx";
+}
+
+void Utility::transferClaim(QString p_receiverAddress, QString p_transferKey, QString p_note)
+{
+
+}
+
+void Utility::editClaim(QString p_note, QString p_file, bool p_public)
+{
+
+}
+
+void Utility::disclaim(QString p_note)
+{
+
+}
+
+void Utility::foundClaim(QString p_note)
 {
 
 }
 // transaction get functions will also go here
 
 // search API
-void Utility::searchChain(const QString &Search)
+void Utility::searchBlockchain(const QString &Search)
 {
-
+    if (Search == "test")
+        m_searchClaimModel.loadTempWallet();
+    else
+        m_searchClaimModel.clearModel();
 }
 
 QString Utility::getWalletName()
@@ -150,80 +185,253 @@ QString Utility::getBitcoinAddress()
     return "abxzncosdfdsfzxclsdfsdvxzmzxc";
 }
 
-QString Utility::getWType(int p_idx)
+QString Utility::getWType(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
-    return m_walletModel.m_claimList[p_idx].type();
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].type();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].type();
+    }
 }
 
-QString Utility::getWName(int p_idx)
+QString Utility::getWName(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
-
-    return m_walletModel.m_claimList[p_idx].name();
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].name();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].name();
+    }
 }
 
-QString Utility::getWMake(int p_idx)
+QString Utility::getWMake(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].make();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].make();
+    }
 
-    return m_walletModel.m_claimList[p_idx].make();
 }
 
-QString Utility::getWModel(int p_idx)
+QString Utility::getWModel(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].model();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].model();
+    }
 
-    return m_walletModel.m_claimList[p_idx].model();
 }
 
-QString Utility::getWYear(int p_idx)
+QString Utility::getWYear(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].year();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].year();
+    }
 
-    return m_walletModel.m_claimList[p_idx].year();
 }
 
-QString Utility::getWSerial(int p_idx)
+QString Utility::getWSerial(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].serial();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].serial();
+    }
 
-    return m_walletModel.m_claimList[p_idx].serial();
 }
 
-QString Utility::getWOther(int p_idx)
+QString Utility::getWOther(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].other();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].other();
+    }
 
-    return m_walletModel.m_claimList[p_idx].other();
 }
 
-QString Utility::getWDescription(int p_idx)
+QString Utility::getWDescription(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].description();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].description();
+    }
 
-    return m_walletModel.m_claimList[p_idx].description();
 }
 
-QString Utility::getWPicture(int p_idx)
+QString Utility::getWPicture(int p_idx, bool p_bSearch)
 {
-    if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
-        return "";
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].picture();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].picture();
+    }
 
-    return m_walletModel.m_claimList[p_idx].picture();
 }
 
-void Utility::selectWallet(int p_idx)
+QString Utility::getWTransactionId(int p_idx, bool p_bSearch)
 {
-    m_historyModel.loadFromList(m_walletModel.m_claimList[p_idx].m_historyList);
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].transactionId();
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].transactionId();
+    }
+
+}
+
+QString Utility::getWClaimedOn(int p_idx, bool p_bSearch)
+{
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].claimedOn().toString("yyyy-MM-dd");
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].claimedOn().toString("yyyy-MM-dd");
+    }
+
+}
+
+QString Utility::getWEditedOn(int p_idx, bool p_bSearch)
+{
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].editedOn().toString("yyyy-MM-dd");
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].editedOn().toString("yyyy-MM-dd");
+    }
+}
+
+QString Utility::getWReportedOn(int p_idx, bool p_bSearch)
+{
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].reportedOn().toString("yyyy-MM-dd");
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].reportedOn().toString("yyyy-MM-dd");
+    }
+}
+
+QString Utility::getWFoundOn(int p_idx, bool p_bSearch)
+{
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].foundOn().toString("yyyy-MM-dd");
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].foundOn().toString("yyyy-MM-dd");
+    }
+}
+
+QString Utility::getWTransferredOn(int p_idx, bool p_bSearch)
+{
+    if (p_bSearch == false)
+    {
+        if (p_idx < 0 || p_idx >= m_walletModel.m_claimList.count())
+            return "";
+        return m_walletModel.m_claimList[p_idx].transferredOn().toString("yyyy-MM-dd");
+    }
+    else
+    {
+        if (p_idx < 0 || p_idx >= m_searchClaimModel.m_claimList.count())
+            return "";
+        return m_searchClaimModel.m_claimList[p_idx].transferredOn().toString("yyyy-MM-dd");
+    }
 }
 
 QString Utility::getFirstMessage()

@@ -3,7 +3,6 @@
         <file>main.qml</file>
         <file>NewClaimFrame.qml</file>
         <file>ReceiveClaimFrame.qml</file>
-        <file>ManageClaimsFrame.qml</file>
         <file>SearchFrame.qml</file>
         <file>SettingsFrame.qml</file>
         <file>WalletInfoFrame.qml</file>
@@ -30,7 +29,6 @@
         <file>WCombobox.qml</file>
         <file>WTextArea.qml</file>
         <file>SummaryFrame.qml</file>
-        <file>LeftMenu.qml</file>
         <file>WSwipeView.qml</file>
         <file>PaymentFrame.qml</file>
         <file>ImageButton.qml</file>
@@ -39,6 +37,20 @@
         <file>Images/visa.png</file>
         <file>Images/express.png</file>
         <file>ProcessingFrame.qml</file>
+        <file>MangeClaimList.qml</file>
+        <file>Images/arrowright_white.png</file>
+        <file>ManageClaimFrame2.qml</file>
+        <file>ManageClaimFrame.qml</file>
+        <file>HistoryView.qml</file>
+        <file>ManageReportFrame.qml</file>
+        <file>ManageTransferFrame.qml</file>
+        <file>ManageEditFrame.qml</file>
+        <file>ManageDisclaimFrame.qml</file>
+        <file>ManageFoundFrame.qml</file>
+        <file>MainLeftMenu.qml</file>
+        <file>ManageLeftMenu.qml</file>
+        <file>SearchClaimListView.qml</file>
+        <file>Images/arrowright_black.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

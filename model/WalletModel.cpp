@@ -57,6 +57,46 @@ QString OrphicClaim::picture() const
     return m_picture;
 }
 
+QString OrphicClaim::transactionId() const
+{
+    return m_transactionId;
+}
+
+QDate OrphicClaim::claimedOn() const
+{
+    return m_claimedOn;
+}
+
+QDate OrphicClaim::editedOn() const
+{
+    return m_editedOn;
+}
+
+QDate OrphicClaim::reportedOn() const
+{
+    return m_reportedOn;
+}
+
+QDate OrphicClaim::foundOn() const
+{
+    return m_foundOn;
+}
+
+QDate OrphicClaim::transferredOn() const
+{
+    return m_transferredOn;
+}
+
+void OrphicClaim::setHistory(QString p_transactionId, QDate p_claimedOn, QDate p_editedOn, QDate p_reportedOn, QDate p_foundOn, QDate p_transferredOn)
+{
+    m_transactionId = p_transactionId;
+    m_claimedOn = p_claimedOn;
+    m_editedOn = p_editedOn;
+    m_reportedOn = p_reportedOn;
+    m_foundOn = p_foundOn;
+    m_transferredOn = p_transferredOn;
+}
+
 void OrphicClaim::addHistory(QDate p_date, QString p_id, QString p_docHash)
 {
     m_historyList.push_back(HistoryItem(p_date, p_id, p_docHash));
@@ -128,6 +168,18 @@ QVariant OrphicWalletModel::data(const QModelIndex & index, int role) const {
         return w_wallet.description();
     else if (role == PictureRole)
         return w_wallet.picture();
+    else if (role == TransactionIdRole)
+        return w_wallet.transactionId();
+    else if (role == ClaimedOnRole)
+        return w_wallet.claimedOn();
+    else if (role == EditedOnRole)
+        return w_wallet.editedOn();
+    else if (role == ReportedOnRole)
+        return w_wallet.reportedOn();
+    else if (role == FoundOnRole)
+        return w_wallet.foundOn();
+    else if (role == TransferredOnRole)
+        return w_wallet.transferredOn();
 
     return QVariant();
 }
@@ -137,6 +189,12 @@ void OrphicWalletModel::clearModel()
     m_claimList.clear();
     beginResetModel();
     endResetModel();
+}
+
+void OrphicWalletModel::closeWallet()
+{
+    clearModel();
+    m_walletName = "";
 }
 
 QHash<int, QByteArray> OrphicWalletModel::roleNames() const {
@@ -150,6 +208,13 @@ QHash<int, QByteArray> OrphicWalletModel::roleNames() const {
     roles[OtherRole] = "wother";
     roles[DescriptionRole] = "wdescription";
     roles[PictureRole] = "wpicture";
+    roles[TransactionIdRole] = "wtransactionId";
+    roles[ClaimedOnRole] = "wclaimedOn";
+    roles[EditedOnRole] = "weditedOn";
+    roles[ReportedOnRole] = "wreportedOn";
+    roles[FoundOnRole] = "wfoundOn";
+    roles[TransferredOnRole] = "wtransferredOn";
+
     return roles;
 }
 

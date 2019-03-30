@@ -15,6 +15,8 @@ Rectangle {
                 id: mousearea
                 anchors.fill: parent
                 onClicked: {
+                    walletMoreInfoPage.setInfo(index, true)
+                    dlgMoreInformation.open()
                 }
             }
             Rectangle
@@ -23,9 +25,8 @@ Rectangle {
                 width: parent.width - 20
                 anchors.centerIn: parent
                 border.width: 1
-//                radius: 5
-                border.color: Variables.borderColor
-                color: Variables.sectionColor
+                border.color: "black"
+                color: mousearea.pressed ? "#d6d6d6" : "#f6f6f6"
                 Rectangle{
                     id: infoRect
                     height: parent.height
@@ -180,26 +181,6 @@ Rectangle {
                             anchors.left: txtOther.right
                         }
                     }
-                    Rectangle{
-                        id: forthLine
-                        anchors.top: thirdLine.bottom
-                        width: parent.width
-                        height: lineHeight
-                        color: "transparent"
-                        TextButton{
-                            text: "Expand"
-                            color: "transparent"
-                            bUnderLine: true
-                            alignHorCenter: false
-                            pressTextColor: Variables.textColor_1
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
-                            onClicked: {
-                                walletMoreInfoPage.setInfo(index, false)
-                                dlgMoreInformation.open()
-                            }
-                        }
-                    }
                 }
                 Rectangle{
                     anchors.right: parent.right
@@ -222,7 +203,7 @@ Rectangle {
         width: parent.width
         height: parent.height
         clip: true
-        model: walletModel
+        model: searchClaimModel
         delegate: walletlistviewDelegate
     }
     PScrollBar {

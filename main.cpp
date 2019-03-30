@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     Utility U;
     context->setContextProperty("utility", &U);
     context->setContextProperty("walletModel", &U.m_walletModel);
+    context->setContextProperty("searchClaimModel", &U.m_searchClaimModel);
     context->setContextProperty("historyModel", &U.m_historyModel);
     context->setContextProperty("localWalletModel", &U.m_localWalletModel);
 

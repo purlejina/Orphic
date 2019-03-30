@@ -22,6 +22,14 @@ public:
     QString description() const;
     QString picture() const;
 
+    QString transactionId() const;
+    QDate   claimedOn() const;
+    QDate   editedOn() const;
+    QDate   reportedOn() const;
+    QDate   foundOn() const;
+    QDate   transferredOn() const;
+
+    void    setHistory(QString p_transactionId, QDate p_claimedOn, QDate p_editedOn, QDate p_reportedOn, QDate p_foundOn, QDate p_transferredOn);
     void addHistory(QDate p_date, QString p_id, QString p_docHash);
     QList<HistoryItem> m_historyList;
 
@@ -36,6 +44,12 @@ private:
     QString m_description;
     QString m_picture;
 
+    QString m_transactionId;
+    QDate   m_claimedOn;
+    QDate   m_editedOn;
+    QDate   m_reportedOn;
+    QDate   m_foundOn;
+    QDate   m_transferredOn;
 };
 
 class OrphicWalletModel : public QAbstractListModel
@@ -51,7 +65,13 @@ public:
         SerialRole,
         OtherRole,
         DescriptionRole,
-        PictureRole
+        PictureRole,
+        TransactionIdRole,
+        ClaimedOnRole,
+        EditedOnRole,
+        ReportedOnRole,
+        FoundOnRole,
+        TransferredOnRole
     };
 
     OrphicWalletModel(QObject *parent = 0);
@@ -66,6 +86,8 @@ public:
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
     void clearModel();
+
+    void closeWallet();
 
 protected:
     QHash<int, QByteArray> roleNames() const;

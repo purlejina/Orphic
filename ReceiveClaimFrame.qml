@@ -5,100 +5,97 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 import "Global"
 
-Item {
+Rectangle {
     id:recieveClaimBox
     anchors.fill: parent
+    color: Variables.backgroundColor
+    property int itemW: Math.min(parent.width / 2.5, 350)
     Rectangle {
         id: receive
-        anchors.fill: parent
-        color: Variables.backgroundColor
-        Rectangle {
-            id: header
+        width: parent.width
+        height: childrenRect.height
+        anchors.verticalCenter: parent.verticalCenter
+        color: "transparent"
+        Text {
+            id: headerText
             anchors.top: parent.top
-            anchors.topMargin: 10
-            height: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: Variables.backgroundColor
-            Text {
-                id: headerText
-                anchors.fill: parent
-                text: "Give this address to the transferer"
-                font.pointSize: 11
-                wrapMode: Text.Wrap
-                horizontalAlignment: Text.AlignHCenter
-                color: Variables.textColor
-            }
+            text: "Give this address to the transferer"
+//            width: parent.width - scaledMargin * 5
+            font.pointSize: fontSize / 1.1
+            wrapMode: Text.WordWrap
+//            horizontalAlignment: Text.AlignHCenter
+//            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: address.left
+            color: Variables.textColor
         }
-        TextField {
+        WTextField {
             id: address
-            anchors.top: header.bottom
-            anchors.topMargin: 20
+            anchors.top: headerText.bottom
+            anchors.topMargin: scaledMargin * 2
             height: 30
             readOnly: true
-            text: "Address *testing"
-            width: parent.width / 2 + 40
+            placeholderText: "256 character String Output"
+            width: itemW
             anchors.horizontalCenter: parent.horizontalCenter
-            style: TextFieldStyle {
-                textColor: Variables.textColor
-                placeholderTextColor: Variables.textColor
-                background: Rectangle {
-                    color: Variables.buttonColor
-                    border.color: "black"
-                    border.width: 1
-                }
-            }
         }
-        Rectangle {
-            id: headerTwo
+        Text {
+            id: headerTwoText
             anchors.top: address.bottom
-            anchors.topMargin: 50
-            height: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: Variables.backgroundColor
-            Text {
-                id: headerTwoText
-                anchors.fill: parent
-                text: "Enter key you received from transferer"
-                font.pointSize: 11
-                wrapMode: Text.Wrap
-                horizontalAlignment: Text.AlignHCenter
-                color: Variables.textColor
-            }
+            anchors.topMargin: scaledMargin * 3.7
+            text: "Enter key you received from transferer"
+//            width: parent.width - scaledMargin * 5
+            font.pointSize: fontSize / 1.1
+            wrapMode: Text.WordWrap
+//            horizontalAlignment: Text.AlignHCenter
+//            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: address.left
+            color: Variables.textColor
         }
-        TextField {
+        WTextField {
             id: receiveKey
-            anchors.top: headerTwo.bottom
-            anchors.topMargin: 20
+            anchors.top: headerTwoText.bottom
+            anchors.topMargin: scaledMargin * 2
             height: 30
-            placeholderText: "Receive Key"
+            placeholderText: "256 character String Input"
             width: address.width
             anchors.horizontalCenter: parent.horizontalCenter
-            style: TextFieldStyle {
-                textColor: Variables.textColor
-                placeholderTextColor: Variables.textColor
-                background: Rectangle {
-                    color: Variables.buttonColor
-                    border.color: "black"
-                    border.width: 1
-                }
+            onTextChanged: {
+                txtReceiveKeyWrong.visible = false
             }
         }
-        Rectangle{
-            id: goButton
+        Text {
+            id: txtReceiveKeyWrong
             anchors.top: receiveKey.bottom
-            anchors.topMargin: 20
-            width: 200
-            height: 30
+            anchors.topMargin: scaledMargin
+            anchors.right: receiveKey.right
+            horizontalAlignment: Text.AlignRight
+            color: "red"
+            text: "*Receive Key may be incorrect."
+            font.pixelSize: fontSize / 1.2
+            wrapMode: Text.WordWrap
+            visible: false
+        }
+
+        TextButton{
+            id: btnGo
+            anchors.top: receiveKey.bottom
+            anchors.topMargin: scaledMargin * 3.7
             anchors.horizontalCenter: parent.horizontalCenter
-            color: Variables.backgroundColor
-            CustomButton{
-                id: gButton
-                buttonText: "Go"
-                onClicked: {
-                    bar.currentIndex = 0
-                    console.log("*testing") // send input to wallet/display in wallet info
+            width: address.width
+            text: "Go"
+            selected: true
+            onClicked: {
+                if (utility.receiveClaim_step2(receiveKey.text) === false)
+                {
+                    txtReceiveKeyWrong.visible = true
+                    return
                 }
+                receiveClaimSwipeView.currentIndex = 1
             }
         }
+    }
+    function setReceiveAddress()
+    {
+        address.text = utility.receiveClaim_step1()
     }
 }

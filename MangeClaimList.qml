@@ -9,7 +9,7 @@ Rectangle {
             id: recipe
 
             width: listView.width
-            height: lineHeight * 4 + scaledMargin / 2
+            height: lineHeight * 3 + scaledMargin / 2
 
             MouseArea {
                 id: mousearea
@@ -31,7 +31,7 @@ Rectangle {
                     height: parent.height
                     anchors.left: parent.left
                     anchors.leftMargin: scaledMargin
-                    width: parent.width - height - scaledMargin
+                    width: parent.width - height / 2 - scaledMargin
                     color: "transparent"
                     Rectangle{
                         id: firstLine
@@ -39,13 +39,32 @@ Rectangle {
                         height: lineHeight
                         color: "transparent"
                         Text{
+                            id: txtName
+                            text: "Name: "
+                            color: Variables.textColor_1
+                            font.pixelSize: fontSize / 1.2
+                            width: contWidth
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                        }
+                        Text{
+                            id: txtNameContent
+                            text: wname
+                            color: Variables.textColor
+                            font.pixelSize: fontSize
+                            width: textWidth
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: txtName.right
+                        }
+
+                        Text{
                             id: txtType
                             text: "Type: "
                             color: Variables.textColor_1
                             font.pixelSize: fontSize / 1.2
                             width: contWidth
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
+                            anchors.left: txtNameContent.right
                         }
                         Text{
                             id: txtTypeContent
@@ -58,31 +77,13 @@ Rectangle {
                         }
 
                         Text{
-                            id: txtName
-                            text: "Name: "
-                            color: Variables.textColor_1
-                            font.pixelSize: fontSize / 1.2
-                            width: contWidth
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: txtTypeContent.right
-                        }
-                        Text{
-                            id: txtNameContent
-                            text: wname
-                            color: Variables.textColor
-                            font.pixelSize: fontSize
-                            width: textWidth
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: txtName.right
-                        }
-                        Text{
                             id: txtMake
                             text: "Make: "
                             color: Variables.textColor_1
                             font.pixelSize: fontSize / 1.2
                             width: contWidth
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: txtNameContent.right
+                            anchors.left: txtTypeContent.right
                         }
                         Text{
                             id: txtMakeContent
@@ -162,55 +163,40 @@ Rectangle {
                         height: lineHeight
                         color: "transparent"
                         Text{
-                            id: txtOther
-                            text: "Other: "
+                            id: txtTransactionId
+                            text: "Transaction ID: "
                             color: Variables.textColor_1
                             font.pixelSize: fontSize / 1.2
-                            width: contWidth
+//                            width: contWidth
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.left: parent.left
                         }
                         Text{
-                            id: txtOtherContent
-                            text: wother
+                            id: txtTransactionIdContent
+                            text: wtransactionId
                             color: Variables.textColor
                             font.pixelSize: fontSize
                             width: textWidth
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: txtOther.right
-                        }
-                    }
-                    Rectangle{
-                        id: forthLine
-                        anchors.top: thirdLine.bottom
-                        width: parent.width
-                        height: lineHeight
-                        color: "transparent"
-                        TextButton{
-                            text: "Expand"
-                            color: "transparent"
-                            bUnderLine: true
-                            alignHorCenter: false
-                            pressTextColor: Variables.textColor_1
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
-                            onClicked: {
-                                walletMoreInfoPage.setInfo(index, false)
-                                dlgMoreInformation.open()
-                            }
+                            anchors.left: txtTransactionId.right
+                            anchors.leftMargin: scaledMargin * 2
                         }
                     }
                 }
-                Rectangle{
+                ImageButton{
+                    id: btnVisa
                     anchors.right: parent.right
-                    height: infoRect.height
+                    anchors.rightMargin: scaledMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: infoRect.height / 2.5
                     width: height
+                    imgPath: Variables.darkModeOn === "1" ? "Images/arrowright_white.png" : "Images/arrowright_black.png"
                     color: "transparent"
-                    Image{
-                        width: parent.width / 1.2
-                        height: parent.height / 1.2
-                        anchors.centerIn: parent
-                        source: wpicture
+                    selected: true
+                    onClicked: {
+                        manageClaimsFrame2.setInfo(index)
+                        manageClaimSwipeView.currentIndex = 1
+                        menuView.currentIndex = 1
                     }
                 }
             }

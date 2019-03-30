@@ -239,7 +239,7 @@ Rectangle {
                 }
 
                 gotoPageWithIdx(0, 0)
-                leftMenu.isWalletOpen = true
+                mainLeftMenu.isWalletOpen = true
             }
         }
     }

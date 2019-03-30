@@ -5,11 +5,11 @@ import QtQuick.Layouts 1.3
 import "Global"
 
 Rectangle{
-    id: leftMenu
+    id: root
     color: Variables.columnColor
     property bool isWalletOpen: false
     Rectangle {
-        id: leftMenuColumn
+        id: wholeRect
         width: parent.width - scaledMargin
         height: childrenRect.height
         anchors.centerIn: parent
@@ -67,6 +67,9 @@ Rectangle{
                 height: itemHeight
                 enabled: isWalletOpen
                 onClicked: {
+                    if (mainStackView.currentIndex != 0 || walletStackView.currentIndex != 2)
+                        receiveClaimFrame.setReceiveAddress()
+
                     gotoPage(0, 2)
                 }
             }
@@ -83,32 +86,6 @@ Rectangle{
                     gotoPage(0, 3)
                 }
             }
-
-            TextButton{
-                id: btnSearch
-                text: "Search"
-                width: parent.width
-                anchors.top: btnManageClaim.bottom
-                anchors.topMargin: scaledMargin
-                height: itemHeight
-                enabled: isWalletOpen
-                onClicked: {
-                    gotoPage(0, 4)
-                }
-            }
-
-            TextButton{
-                id: btnSettings
-                text: "Settings"
-                width: parent.width
-                anchors.top: btnSearch.bottom
-                anchors.topMargin: scaledMargin
-                height: itemHeight
-                onClicked: {
-                    gotoPage(0, 5)
-                }
-            }
-
         }
 
         TextButton{
@@ -150,6 +127,7 @@ Rectangle{
                 utility.closeWallet()
                 gotoPage(0, 0)
                 isWalletOpen = false
+                walletInfoFrame.bRefresh = !walletInfoFrame.bRefresh
             }
         }
 
@@ -165,6 +143,31 @@ Rectangle{
                 gotoPage(3, 0)
             }
         }
+        TextButton{
+            id: btnSearch
+            text: "Search"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: clearwButton.bottom
+            anchors.topMargin: scaledMargin * 1.5
+            height: itemHeight
+            onClicked: {
+                gotoPage(4, 0)
+            }
+        }
+
+        TextButton{
+            id: btnSettings
+            text: "Settings"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: btnSearch.bottom
+            anchors.topMargin: scaledMargin * 1.5
+            height: itemHeight
+            onClicked: {
+                gotoPage(5, 0)
+            }
+        }
     }
     function gotoPage(largeIdx, smallIdx)
     {
@@ -176,13 +179,21 @@ Rectangle{
             btnNewClaim.selected = smallIdx === 1 ? true : false
             btnReceiveClaim.selected = smallIdx === 2 ? true : false
             btnManageClaim.selected = smallIdx === 3 ? true : false
-            btnSearch.selected = smallIdx === 4 ? true : false
-            btnSettings.selected = smallIdx === 5 ? true : false
         }
+        else
+        {
+            btnWalletInfo.selected = false
+            btnNewClaim.selected = false
+            btnReceiveClaim.selected = false
+            btnManageClaim.selected = false
+        }
+
         wButton.selected = largeIdx === 0 ? true : false
         nwButton.selected = largeIdx === 1 ? true : false
         lwButton.selected = largeIdx === 2 ? true : false
         clearwButton.selected = largeIdx === 3 ? true : false
+        btnSearch.selected = largeIdx === 4 ? true : false
+        btnSettings.selected = largeIdx === 5 ? true : false
     }
 }
 

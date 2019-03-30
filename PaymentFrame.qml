@@ -10,7 +10,7 @@ Rectangle {
     color: Variables.backgroundColor
     anchors.fill: parent
     property int itemW: Math.min(parent.width / 3.5, 350)
-
+    property bool fromNew: true
     Text {
         id: headerText
         font.pixelSize: fontSize
@@ -34,6 +34,7 @@ Rectangle {
         anchors.topMargin: scaledMargin * 2
         anchors.bottom: btnPrevious.top
         anchors.bottomMargin: scaledMargin * 2
+        color: "transparent"
 
         Rectangle{
             id: creditRect
@@ -51,6 +52,7 @@ Rectangle {
                 anchors.topMargin: scaledMargin
                 anchors.left: parent.left
                 text: "Credit/Debit Card"
+                color: Variables.textColor
             }
             Rectangle{
                 id: rectBtnCredit
@@ -159,6 +161,7 @@ Rectangle {
                 anchors.topMargin: scaledMargin * 2
                 height: itemHeight / 1.5
                 text: "Total: $" + utility.getTotalBalance()
+                color: Variables.textColor
             }
         }
         Rectangle{
@@ -178,6 +181,7 @@ Rectangle {
                 anchors.topMargin: scaledMargin
                 anchors.left: parent.left
                 text: "Bitcoin"
+                color: Variables.textColor
             }
 
             WTextField {
@@ -204,11 +208,13 @@ Rectangle {
                 anchors.bottom: txtTotalBitcoin.top
                 anchors.bottomMargin: scaledMargin * 2
                 text: "Send Bitcoin to this Address"
+                color: Variables.textColor
             }
             Text{
                 id: txtTotalBitcoin
                 anchors.bottom: parent.bottom
                 text: "Total: B" + utility.getTotalBitcoin()
+                color: Variables.textColor
             }
         }
     }
@@ -223,7 +229,10 @@ Rectangle {
         height: itemHeight
         widthRate: 2
         onClicked: {
-            newClaimSwipeView.currentIndex = newClaimSwipeView.currentIndex - 1
+            if (fromNew)
+                newClaimSwipeView.currentIndex = newClaimSwipeView.currentIndex - 1
+            else
+                manageClaimSwipeView.currentIndex = manageClaimSwipeView.currentIndex - 1
         }
     }
     TextButton{
@@ -238,7 +247,10 @@ Rectangle {
         widthRate: 2
         onClicked: {
             utility.doPayment(txtCardNumber.text, txtCsv.text, txtExpDate.text)
-            newClaimSwipeView.currentIndex = newClaimSwipeView.currentIndex + 1
+            if (fromNew)
+                newClaimSwipeView.currentIndex = newClaimSwipeView.currentIndex + 1
+            else
+                manageClaimSwipeView.currentIndex = manageClaimSwipeView.currentIndex + 1
         }
     }
 

@@ -10,6 +10,7 @@ Item {
     anchors.fill:parent
     property int mainStackViewIdx: -1
     property int walletStackViewIdx: -1
+    property bool bRefresh: false
     Rectangle {
         id: rectangle
         anchors.fill: parent
@@ -41,7 +42,6 @@ Item {
                 id: walletlistview
                 color: "transparent"
                 anchors.fill: parent
-
             }
             Text {
                 id: txtClaimMessage
@@ -93,6 +93,11 @@ Item {
     onMainStackViewIdxChanged: {
         visibleChanged()
     }
+
+    onBRefreshChanged: {
+        visibleChanged()
+    }
+
     function visibleChanged()
     {
         if (mainStackViewIdx != 0)

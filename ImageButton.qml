@@ -6,7 +6,7 @@ Rectangle {
     id: container
 
     property alias imgPath: image.source
-    property string bgColor: Variables.buttonColor
+    property string bgColor: Variables.backgroundColor
     property string pressColor: "#cc10c7ff"
     property string hoverColor: "#dddddd"
     property string selectColor: "#10c7ff"

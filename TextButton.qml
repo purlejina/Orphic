@@ -51,9 +51,9 @@ Rectangle {
 //    property string downColor: "#333333"
 //    property string gradientColor: "#888888"
     property string bgColor: Variables.buttonColor
-    property string pressColor: "#cc10c7ff"
-    property string hoverColor: "#dddddd"
-    property string selectColor: "#10c7ff"
+    property string pressColor: Variables.buttonPressColor
+    property string hoverColor: Variables.buttonHoverColor
+    property string selectColor: Variables.buttonSelectColor
     property string fontFamily: "Arial"
     property string textColor: Variables.textColor
     property string pressTextColor: "white"

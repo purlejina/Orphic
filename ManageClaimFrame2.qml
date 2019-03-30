@@ -9,12 +9,10 @@ Rectangle {
     id: rectangle
     color: Variables.backgroundColor
     anchors.fill: parent
-    property bool fromNew: true
-    property int prevManageClaimViewIdx
     property int p_idx: -1
     property int itemW: Math.min(parent.width / 3.5, 350)
-    property string pname
-    property string ptype
+    property alias pname: txtName.text
+    property alias ptype:txtTypeContent.text
     property alias pmake : txtMakeContent.text
     property alias pmodel : txtModelContent.text
     property alias pyear : txtYearContent.text
@@ -23,46 +21,33 @@ Rectangle {
     property alias pdesc : txtDescriptionContent.text
     property alias pfile : image.source
 
-    Text {
-        id: headerText
-        font.pixelSize: fontSize
-        font.bold: true
-        anchors.top: parent.top
-        anchors.topMargin: scaledMargin * 2.5
-        wrapMode: Text.WordWrap
-        horizontalAlignment: Text.AlignHCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: "Summary"
-        color: Variables.textColor
-    }
     Rectangle{
         id: infoRect
-        anchors.top: headerText.bottom
-        anchors.topMargin: scaledMargin * 2
+        anchors.top: parent.top
+        anchors.topMargin: scaledMargin * 2.5
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.leftMargin: scaledMargin * 3.5
         anchors.rightMargin: scaledMargin * 3.5
-        anchors.bottom: chkVerify.top
+        anchors.bottom: parent.bottom
         anchors.bottomMargin: scaledMargin * 2
         color: "transparent"
         border.width: 1
         border.color: Variables.borderNormalColor
         Text{
-            id: txtNameType
+            id: txtName
             color: Variables.textColor
             font.pixelSize: fontSize / 1.2
             width: itemWidth / 2
             anchors.top: parent.top
             anchors.topMargin: scaledMargin
             anchors.horizontalCenter: parent.horizontalCenter
-            text: pname + " - " + ptype
         }
         Rectangle{
             id: underBar
             width: parent.width
             height: 1
-            anchors.top: txtNameType.bottom
+            anchors.top: txtName.bottom
             anchors.topMargin: scaledMargin
             color:Variables.borderNormalColor
         }
@@ -78,8 +63,8 @@ Rectangle {
             color: "transparent"
 
             Text{
-                id: txtMake
-                text: "Make: "
+                id: txtType
+                text: "Type: "
                 color: Variables.textColor_1
                 font.pixelSize: fontSize / 1.2
                 width: itemWidth / 2
@@ -87,11 +72,31 @@ Rectangle {
                 anchors.left: parent.left
             }
             Text{
-                id: txtMakeContent
+                id: txtTypeContent
                 color: Variables.textColor
                 font.pixelSize: fontSize
                 width: textWidth
                 anchors.top: parent.top
+                anchors.left: txtType.right
+            }
+
+            Text{
+                id: txtMake
+                text: "Make: "
+                color: Variables.textColor_1
+                font.pixelSize: fontSize / 1.2
+                width: itemWidth / 2
+                anchors.top: txtType.bottom
+                anchors.topMargin: scaledMargin
+                anchors.left: parent.left
+            }
+            Text{
+                id: txtMakeContent
+                color: Variables.textColor
+                font.pixelSize: fontSize
+                width: textWidth
+                anchors.top: txtType.bottom
+                anchors.topMargin: scaledMargin
                 anchors.left: txtMake.right
             }
             Text{
@@ -208,108 +213,28 @@ Rectangle {
                 color: "transparent"
                 anchors.top: txtDescriptionContent.bottom
                 anchors.topMargin: scaledMargin * 2
+                anchors.bottom: parent.bottom
             }
         }
     }
 
-    WCheckBox {
-        id: chkVerify
-        anchors.bottom: password.top
-        anchors.bottomMargin: scaledMargin
-        text: "I verify that all information is correct."
-        anchors.left: infoRect.left
-        font.pixelSize: fontSize / 1.2
-    }
-    WTextField {
-        id: password
-        anchors.left: infoRect.left
-        anchors.bottom: wrongPassword.top
-        anchors.bottomMargin: scaledMargin
-        width: itemW
-        height: itemHeight
-        placeholderText: "Enter Password"
-        echoMode: TextInput.Password
-        font.pixelSize: fontSize / 1.1
-        onTextChanged: {
-            wrongPassword.visible = false
-        }
-    }
-    TextButton{
-        id: btnPrevious
-        anchors.bottom: wrongPassword.top
-        anchors.bottomMargin: scaledMargin
-        anchors.right: btnContinue.left
-        anchors.rightMargin: scaledMargin
-        text: "Previous"
-        selected: true
-        height: itemHeight
-        widthRate: 2
-        onClicked: {
-            if (fromNew)
-                newClaimSwipeView.currentIndex = newClaimSwipeView.currentIndex - 1
-            else
-                manageClaimSwipeView.currentIndex = prevManageClaimViewIdx
-        }
-    }
-    TextButton{
-        id: btnContinue
-        anchors.bottom: wrongPassword.top
-        anchors.bottomMargin: scaledMargin
-        anchors.right: infoRect.right
-        text: "Continue"
-        selected: true
-        height: itemHeight
-        enabled: chkVerify.checked
-        widthRate: 2
-        onClicked: {
-            if (utility.checkPassword(password.text) === false)
-            {
-                wrongPassword.visible = true
-                return
-            }
-            utility.createTransaction(pname, ptype, pmake, pmodel, pyear, pserial, pother, pdesc, pfile)
-            if (fromNew)
-                newClaimSwipeView.currentIndex = newClaimSwipeView.currentIndex + 1
-            else
-                manageClaimSwipeView.currentIndex = manageClaimSwipeView.currentIndex + 1
-        }
-    }
-    Text {
-        id: wrongPassword
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: scaledMargin
-        anchors.left: password.left
-        wrapMode: Text.WordWrap
-        horizontalAlignment: Text.AlignRight
-        font.pixelSize: fontSize / 1.2
-        color: "red"
-        text: "Password Incorrect *testing"
-        height: itemHeight / 1.5
-        visible: false
-    }
-    function setInfo(p_type, p_name, p_make, p_model, p_year, p_serial, p_other, p_desc, p_file)
-    {
-        pname = p_name
-        ptype = p_type
-        pmake = p_make
-        pmodel = p_model
-        pyear = p_year
-        pserial = p_serial
-        pother = p_other
-        pdesc = p_desc
-        pfile = p_file
-    }
-    function setIdx(idx)
+    function setInfo(idx)
     {
         p_idx = idx
-        pname = utility.getWName(p_idx)
-        ptype = utility.getWType(p_idx)
-        pmake = utility.getWMake(p_idx)
-        pmodel = utility.getWModel(p_idx)
-        pyear = utility.getWYear(p_idx)
-        pserial = utility.getWSerial(p_idx)
-        pother = utility.getWOther(p_idx)
-        pdesc = utility.getWDescription(p_idx)
-        pfile = utility.getWPicture(p_idx)
+        pname = utility.getWName(idx)
+        ptype = utility.getWType(idx)
+        pmake = utility.getWMake(idx)
+        pmodel = utility.getWModel(idx)
+        pyear = utility.getWYear(idx)
+        pserial = utility.getWSerial(idx)
+        pother = utility.getWOther(idx)
+        pdesc = utility.getWDescription(idx)
+        pfile = utility.getWPicture(idx)
+        historyview.transactionId = utility.getWTransactionId(idx)
+        historyview.claimedOn = utility.getWClaimedOn(idx)
+        historyview.editedOn = utility.getWEditedOn(idx)
+        historyview.reportedOn = utility.getWReportedOn(idx)
+        historyview.foundOn = utility.getWFoundOn(idx)
+        historyview.transferredOn = utility.getWTransferredOn(idx)
     }
 }

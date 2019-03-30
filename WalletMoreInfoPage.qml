@@ -179,6 +179,7 @@ Rectangle {
         width: height
         color: "transparent"
         Image{
+            id: image
             width: parent.width / 1.2
             height: parent.height / 1.2
             anchors.centerIn: parent
@@ -208,16 +209,49 @@ Rectangle {
         anchors.left: parent.left
     }
 
-    Rectangle{
+    HistoryView{
+        id: historyview
         anchors.top: txtHistory.bottom
         anchors.bottom: parent.bottom
         width: parent.width
         anchors.topMargin: scaledMargin
         color: "transparent"
-        HistoryListView{
-            id: historylistview
-            color: "transparent"
-            anchors.fill: parent
-        }
     }
+//    PScrollBar{
+//        id: scrollbar
+//        flickable: historyview
+//    }
+
+    function setInfo(idx, pSearch)
+    {
+        p_idx = idx
+        txtTypeContent.text = utility.getWType(p_idx, pSearch)
+        txtNameContent.text = utility.getWName(p_idx, pSearch)
+        txtMakeContent.text = utility.getWMake(p_idx, pSearch)
+        txtModelContent.text = utility.getWModel(p_idx, pSearch)
+        txtYearContent.text = utility.getWYear(p_idx, pSearch)
+        txtSerialContent.text = utility.getWSerial(p_idx, pSearch)
+        txtOtherContent.text = utility.getWOther(p_idx, pSearch)
+        txtDescriptionContent.text = utility.getWDescription(p_idx, pSearch)
+        image.source = utility.getWPicture(p_idx, pSearch)
+        historyview.transactionId = utility.getWTransactionId(p_idx, pSearch)
+        historyview.claimedOn = utility.getWClaimedOn(p_idx, pSearch)
+        historyview.editedOn = utility.getWEditedOn(p_idx, pSearch)
+        historyview.reportedOn = utility.getWReportedOn(p_idx, pSearch)
+        historyview.foundOn = utility.getWFoundOn(p_idx, pSearch)
+        historyview.transferredOn = utility.getWTransferredOn(p_idx, pSearch)
+    }
+
+//    Rectangle{
+//        anchors.top: txtHistory.bottom
+//        anchors.bottom: parent.bottom
+//        width: parent.width
+//        anchors.topMargin: scaledMargin
+//        color: "transparent"
+//        HistoryListView{
+//            id: historylistview
+//            color: "transparent"
+//            anchors.fill: parent
+//        }
+//    }
 }
