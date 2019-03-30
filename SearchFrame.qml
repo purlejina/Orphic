@@ -89,7 +89,7 @@ Rectangle {
     }
     Dialog {
         id: dlgMoreInformation
-        modality: Qt.WindowModal
+        modality: Qt.ApplicationModal
         title: "More information"
         contentItem: Rectangle {
             color: Variables.backgroundColor
